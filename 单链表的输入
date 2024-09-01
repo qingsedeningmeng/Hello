@@ -1,0 +1,76 @@
+#include<iostream>
+#include<string>
+using namespace std;
+typedef struct LNode
+{
+	string data;
+	struct LNode *next;
+}LNode,*Linklist;
+void Createlist1(Linklist &L,int n)
+{
+	L=new LNode;
+	L->next=NULL;
+	for(int i=0;i<n;i++)
+	{
+		Linklist p=new LNode;
+		cin>>p->data;
+		p->next=L->next;
+		L->next =p;
+	}
+}//鍓嶆彃娉曪紝鍏堟彃鍏ョ殑鎺掑埌鍚庨潰鍘讳簡锛屽悗鎻掑叆鐨勫湪鍓嶉潰
+void Createlist2(Linklist &L,int n)
+{
+	L=new LNode;
+	L->next=NULL;
+	Linklist r=L;
+	for(int i=0;i<n;i++)
+	{
+		Linklist p=new LNode;
+		cin>>p->data;
+		p->next=NULL;
+		r->next=p;//鐩稿綋浜庡湪L鐨勫悗闈㈡彃鍏ュ厓绱?
+		r=p;//璁﹔鎸囧悜鏂扮殑灏捐妭鐐?
+	}
+}//鍚庢彃娉曟彃鍏?
+void dispall(Linklist L)
+{
+	Linklist f;
+	f=L->next;
+	while(f)
+	{
+		cout<<f->data<<endl;
+		f=f->next;
+	}
+}//鏄剧ず鍗曢摼琛?
+void FreeList(Linklist &L)
+{
+	Linklist p = L;
+	while (p)
+	{
+		Linklist temp = p;
+		p = p->next;
+		delete temp;
+	}
+	L = NULL;
+}//閲婃斁鍐呭瓨
+int main()
+{
+	Linklist m;
+	cout<<"Please input your number:"<<endl;
+	cout<<"(鍓嶆彃娉曞垱寤哄崟閾捐〃)"<<endl;
+	int a;
+	cin>>a;
+	Createlist1(m,a);
+	cout<<"鏄剧ず鎵€鍒涘缓鐨勫崟閾捐〃"<<endl;
+	dispall(m);
+	FreeList(m);
+	Linklist n;
+	cout<<"Please input your number:"<<endl;
+	cout<<"(鍚庢彃娉曞垱寤哄崟閾捐〃)"<<endl;
+	int b;
+	cin>>b;
+	Createlist2(n,b);
+	dispall(n);
+	FreeList(n);
+	return 0;
+}
